@@ -9,22 +9,32 @@ namespace Rasttad.Models
 
         [Required]
         [StringLength(50)]
-        public string Slug { get; set; } = string.Empty; // مثل "it", "manufacturing"
+        public string Slug { get; set; } = string.Empty;
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = string.Empty; // "فناوری اطلاعات"
+        public string Name { get; set; } = string.Empty;
 
         [StringLength(500)]
-        public string? Description { get; set; } // توضیح کوتاه
+        public string? Description { get; set; }
 
         [StringLength(20)]
-        public string? ColorTheme { get; set; } // مثل "#004a99"
+        public string? ColorTheme { get; set; }
 
         [StringLength(200)]
-        public string? HeroImage { get; set; } // مسیر تصویر
+        public string? HeroImage { get; set; }
 
-        // ارتباط با جداول دیگر
+        // ==================== فیلدهای SEO ====================
+        [StringLength(200)]
+        public string? MetaTitle { get; set; }
+
+        [StringLength(300)]
+        public string? MetaDescription { get; set; }
+
+        [StringLength(300)]
+        public string? MetaKeywords { get; set; }
+
+        // ==================== ارتباطات ====================
         public List<Challenge> Challenges { get; set; } = new();
         public List<Service> Services { get; set; } = new();
         public List<CaseStudy> CaseStudies { get; set; } = new();

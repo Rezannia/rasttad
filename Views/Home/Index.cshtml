@@ -4,189 +4,231 @@
 
 @section Styles {
     <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: #202124;
-            padding: 20px;
-            margin: 0;
-        }
-
-        .logo-container {
-            margin-bottom: 60px;
+        .gateway-hero {
+            padding: 6rem 0 5rem;
             text-align: center;
-            animation: fadeInDown 0.8s ease-out;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
         }
 
-        .logo-container img {
-            max-width: 250px;
+        .gateway-hero .hero-logo {
+            margin-bottom: 3rem;
+        }
+
+        .gateway-hero .hero-logo img {
+            max-width: 200px;
             height: auto;
-            display: block;
         }
 
-        .form-container {
-            width: 100%;
+        .gateway-hero h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: #1b1b1b;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .gateway-hero p {
+            font-size: 1.05rem;
+            color: #525252;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .gateway-form {
             max-width: 1000px;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: nowrap;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 2.5rem;
         }
 
-        .input-group {
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1.25rem;
+            align-items: end;
+        }
+
+        .form-field-wrap {
             display: flex;
             flex-direction: column;
             text-align: right;
-            flex: 1;
-            min-width: 0;
         }
 
-        .input-group label {
+        .form-field-wrap label {
             font-size: 0.85rem;
             font-weight: 500;
-            color: #5f6368;
-            margin-bottom: 8px;
-            padding-right: 5px;
+            color: #1b1b1b;
+            margin-bottom: 0.5rem;
+            font-family: 'Vazirmatn', sans-serif;
         }
 
-        .input-group select {
+        .form-field-wrap select {
             width: 100%;
-            padding: 14px 20px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: #202124;
-            background-color: #fff;
-            border: 1px solid #dfe1e5;
-            border-radius: 24px;
+            padding: 0.75rem 1rem;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            color: #1b1b1b;
+            background: #ffffff;
+            border: 1px solid #c6c6c6;
+            border-radius: 4px;
             outline: none;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s;
+            direction: rtl;
             appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%235f6368%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23767676%22%20d%3D%22M6%209L1%204h10z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
-            background-position: left 15px center;
-            background-size: 12px;
+            background-position: left 16px center;
+            padding-left: 40px;
         }
 
-        .input-group select:hover,
-        .input-group select:focus {
-            box-shadow: 0 1px 6px rgba(32,33,36,.28);
-            border-color: rgba(223,225,229,0);
+        .form-field-wrap select:focus {
+            border-color: var(--rasttad-primary);
+            box-shadow: 0 0 0 2px var(--rasttad-primary-light);
         }
 
-        .submit-btn-wrapper {
-            flex: 0 0 auto;
-            padding-bottom: 1px;
-        }
-
-        .submit-btn {
-            padding: 14px 45px;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            background-color: #004a99;
-            border: 1px solid #004a99;
-            border-radius: 24px;
+        .form-submit-btn {
+            padding: 0.75rem 2rem;
+            background: var(--rasttad-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.2s;
             white-space: nowrap;
+            height: 46px;
         }
 
-        .submit-btn:hover:not(:disabled) {
-            background-color: #003366;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        .form-submit-btn:hover:not(:disabled) {
+            background: var(--rasttad-primary-dark);
         }
 
-        .submit-btn:disabled {
-            background-color: #f8f9fa;
-            color: #b0b0b0;
-            border: 1px solid #dfe1e5;
+        .form-submit-btn:disabled {
+            background: #e0e0e0;
+            color: #8d8d8d;
             cursor: not-allowed;
         }
 
-        @@keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .trust-section {
+            padding: 4rem 0;
+            text-align: center;
         }
 
-        @@keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .trust-section p {
+            font-size: 0.85rem;
+            color: #6f6f6f;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        @@media (max-width: 768px) {
-            .logo-container img { max-width: 180px; }
-            .form-container {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.5;
+        }
+
+        .trust-logos span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #525252;
+        }
+
+        @@media (max-width: 900px) {
+            .form-grid {
+                grid-template-columns: 1fr;
             }
-            .submit-btn-wrapper { width: 100%; }
-            .submit-btn { width: 100%; }
+            .form-submit-btn {
+                width: 100%;
+            }
+        }
+
+        @@media (max-width: 600px) {
+            .gateway-hero { padding: 3rem 0 2.5rem; }
+            .gateway-form { padding: 1.5rem 1.25rem; }
         }
     </style>
 }
 
-<div class="logo-container">
-    <img src="~/images/logo.png" alt="لوگو رستاد">
-</div>
+<section class="gateway-hero">
+    <div class="grid-container">
+        <div class="hero-logo">
+            <img src="~/images/logo.png" alt="رستاد">
+        </div>
+        <h1>راهکارهای تخصصی منابع انسانی<br />متناسب با صنعت شما</h1>
+        <p>صنعت، اندازه و موقعیت کسب‌وکار خود را انتخاب کنید تا راهکارهای اختصاصی رستاد را ببینید.</p>
 
-<form asp-controller="Industry" asp-action="Details" method="get" class="form-container">
-    
-    <div class="input-group">
-        <label for="slug">نام صنعت</label>
-        <select id="slug" name="slug" required onchange="checkForm()">
-            <option value="" disabled selected>انتخاب کنید...</option>
-            <option value="it">فناوری اطلاعات و استارتاپ</option>
-            <option value="manufacturing">تولید و صنایع</option>
-            <option value="retail">خرده‌فروشی و زنجیره‌ای</option>
-            <option value="finance">خدمات مالی و بانکی</option>
-            <option value="health">سلامت و درمان</option>
-            <option value="construction">عمران و ساختمان</option>
-            <option value="hospitality">خدمات و مهمان‌نوازی</option>
-            <option value="logistics">بازرگانی و لجستیک</option>
-        </select>
+        <div class="gateway-form">
+            <form asp-controller="Industry" asp-action="Details" method="get">
+                <div class="form-grid">
+                    <div class="form-field-wrap">
+                        <label for="slug">نام صنعت</label>
+                        <select id="slug" name="slug" required onchange="checkForm()">
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            <option value="it">فناوری اطلاعات و استارتاپ</option>
+                            <option value="manufacturing">تولید و صنایع</option>
+                            <option value="retail">خرده‌فروشی و زنجیره‌ای</option>
+                            <option value="finance">خدمات مالی و بانکی</option>
+                            <option value="health">سلامت و درمان</option>
+                            <option value="construction">عمران و ساختمان</option>
+                            <option value="hospitality">خدمات و مهمان‌نوازی</option>
+                            <option value="logistics">بازرگانی و لجستیک</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field-wrap">
+                        <label for="employees">تعداد کارکنان</label>
+                        <select id="employees" name="employees" required onchange="checkForm()">
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            <option value="1-10">۱ تا ۱۰ نفر</option>
+                            <option value="11-50">۱۱ تا ۵۰ نفر</option>
+                            <option value="51-200">۵۱ تا ۲۰۰ نفر</option>
+                            <option value="201-500">۲۰۱ تا ۵۰۰ نفر</option>
+                            <option value="500+">بیش از ۵۰۰ نفر</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field-wrap">
+                        <label for="location">محل فعالیت</label>
+                        <select id="location" name="location" required onchange="checkForm()">
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            <option value="tehran">تهران</option>
+                            <option value="isfahan">اصفهان</option>
+                            <option value="mashhad">مشهد</option>
+                            <option value="shiraz">شیراز</option>
+                            <option value="tabriz">تبریز</option>
+                            <option value="other">سایر شهرها</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type="submit" id="submitBtn" class="form-submit-btn" disabled>مشاهده راهکارها</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
+</section>
 
-    <div class="input-group">
-        <label for="employees">تعداد کارکنان</label>
-        <select id="employees" name="employees" required onchange="checkForm()">
-            <option value="" disabled selected>انتخاب کنید...</option>
-            <option value="1-10">۱ تا ۱۰ نفر</option>
-            <option value="11-50">۱۱ تا ۵۰ نفر</option>
-            <option value="51-200">۵۱ تا ۲۰۰ نفر</option>
-            <option value="201-500">۲۰۱ تا ۵۰۰ نفر</option>
-            <option value="500+">بیش از ۵۰۰ نفر</option>
-        </select>
+<section class="trust-section">
+    <div class="grid-container">
+        <p>مورد اعتماد کسب‌وکارهای پیشرو</p>
+        <div class="trust-logos">
+            <span>شرکت الف</span>
+            <span>استارتاپ ب</span>
+            <span>گروه ج</span>
+            <span>هلدینگ د</span>
+        </div>
     </div>
-
-    <div class="input-group">
-        <label for="location">محل فعالیت</label>
-        <select id="location" name="location" required onchange="checkForm()">
-            <option value="" disabled selected>انتخاب کنید...</option>
-            <option value="tehran">تهران</option>
-            <option value="isfahan">اصفهان</option>
-            <option value="mashhad">مشهد</option>
-            <option value="shiraz">شیراز</option>
-            <option value="tabriz">تبریز</option>
-            <option value="other">سایر شهرها</option>
-        </select>
-    </div>
-
-    <div class="submit-btn-wrapper">
-        <button type="submit" id="submitBtn" class="submit-btn" disabled>ورود</button>
-    </div>
-
-</form>
+</section>
 
 @section Scripts {
     <script>
@@ -195,12 +237,7 @@
             const employees = document.getElementById('employees').value;
             const location = document.getElementById('location').value;
             const submitBtn = document.getElementById('submitBtn');
-
-            if (slug && employees && location) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
+            submitBtn.disabled = !(slug && employees && location);
         }
     </script>
 }
