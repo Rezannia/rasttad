@@ -72,7 +72,10 @@ else
 
 app.UseStatusCodePagesWithReExecute("/Home/Error404");
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseStaticFiles();
 app.UseRouting();
 

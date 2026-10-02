@@ -7,12 +7,14 @@
 
 @section Styles {
     <style>
+        /* ==================== Page Layout ==================== */
         .admin-page {
             max-width: 1200px;
             margin: 3rem auto;
             padding: 0 1.25rem;
         }
 
+        /* ==================== Page Header ==================== */
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -20,15 +22,26 @@
             margin-bottom: 2.5rem;
             flex-wrap: wrap;
             gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .page-title {
+        .page-header-text h1 {
             font-size: 1.75rem;
             font-weight: 700;
             color: #1b1b1b;
+            margin-bottom: 0.25rem;
+        }
+
+        .page-header-text p {
+            font-size: 0.9rem;
+            color: #6f6f6f;
         }
 
         .btn-create {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             background: #198038;
             color: #ffffff;
@@ -41,77 +54,165 @@
 
         .btn-create:hover {
             background: #135c28;
+            color: #ffffff;
+            text-decoration: none;
         }
 
+        /* ==================== Filter Bar ==================== */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem 1rem;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            border: 1px solid #c6c6c6;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s;
+            direction: rtl;
+        }
+
+        .filter-bar input:focus {
+            border-color: var(--rasttad-primary);
+            box-shadow: 0 0 0 2px var(--rasttad-primary-light);
+        }
+
+        /* ==================== Industry Grid ==================== */
         .industry-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 1.5rem;
         }
 
+        /* ==================== Industry Card (USWDS Style) ==================== */
         .industry-card {
             background: #ffffff;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             overflow: hidden;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
         .industry-card:hover {
-            border-color: var(--rasttad-primary);
+            border-color: #c6c6c6;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
 
+        /* ==================== Card Header (USWDS - Minimal) ==================== */
         .card-header {
             padding: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: #ffffff;
+        }
+
+        /* آیکون دایره‌ای با رنگ ملایم */
+        .card-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: #ffffff;
+            background: var(--rasttad-primary);
         }
 
-        .card-header h3 {
-            font-size: 1.15rem;
+        .card-header-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-header-text h3 {
+            font-size: 1.1rem;
             font-weight: 600;
+            color: #1b1b1b;
             margin-bottom: 0.25rem;
+            line-height: 1.3;
         }
 
-        .card-header .slug {
-            font-size: 0.8rem;
-            opacity: 0.85;
-            font-family: monospace;
+        .card-header-text .slug {
+            font-size: 0.75rem;
+            color: #6f6f6f;
+            font-family: 'Courier New', monospace;
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 3px;
+            display: inline-block;
         }
 
+        /* ==================== Card Body ==================== */
         .card-body {
             padding: 1.25rem 1.5rem;
+            flex: 1;
         }
 
+        .card-description {
+            font-size: 0.85rem;
+            color: #525252;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.7em;
+        }
+
+        /* ==================== Card Stats ==================== */
         .card-stats {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
         }
 
         .card-stat {
             flex: 1;
             text-align: center;
-            padding: 0.75rem;
-            background: #f4f4f4;
+            padding: 0.75rem 0.5rem;
+            background: #f8f9fa;
             border-radius: 4px;
+            border: 1px solid #f0f0f0;
         }
 
         .card-stat .num {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: #1b1b1b;
+            line-height: 1;
+            margin-bottom: 0.25rem;
         }
 
         .card-stat .lbl {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #6f6f6f;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
+        /* ==================== Card Actions ==================== */
         .card-actions {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            padding: 0 1.5rem 1.5rem;
+            padding: 1rem 1.5rem 1.5rem;
+            border-top: 1px solid #f0f0f0;
+            background: #fafbfc;
         }
 
         .btn-action {
@@ -125,15 +226,23 @@
             text-align: center;
             transition: all 0.2s;
             font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
         }
 
         .btn-content {
-            background: #198038;
-            color: #ffffff;
+            background: #ffffff;
+            color: #1b1b1b;
+            border: 1px solid #c6c6c6;
         }
 
         .btn-content:hover {
-            background: #135c28;
+            background: #f4f4f4;
+            color: #1b1b1b;
+            text-decoration: none;
+            border-color: #8d8d8d;
         }
 
         .btn-edit {
@@ -143,16 +252,20 @@
 
         .btn-edit:hover {
             background: var(--rasttad-primary-dark);
+            color: #ffffff;
+            text-decoration: none;
         }
 
         .btn-delete {
-            background: #fff1f1;
-            color: #750e13;
+            background: #ffffff;
+            color: #c0392b;
+            border: 1px solid #f5c6c6;
         }
 
         .btn-delete:hover {
             background: #c0392b;
             color: #ffffff;
+            border-color: #c0392b;
         }
 
         .row-actions {
@@ -163,52 +276,154 @@
         .row-actions .btn-action {
             flex: 1;
         }
+
+        /* ==================== Empty State ==================== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: #6f6f6f;
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.1rem;
+            color: #1b1b1b;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==================== Responsive ==================== */
+        @@media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-create {
+                justify-content: center;
+            }
+
+            .industry-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 }
 
 <div class="admin-page">
+
+    <!-- Page Header -->
     <div class="page-header">
-        <h1 class="page-title">مدیریت صنایع (@Model.Count)</h1>
-        <a href="/Admin/CreateIndustry" class="btn-create">+ افزودن صنعت جدید</a>
+        <div class="page-header-text">
+            <h1>مدیریت صنایع</h1>
+            <p>@Model.Count صنعت ثبت شده در سیستم</p>
+        </div>
+        <a href="/Admin/CreateIndustry" class="btn-create">
+            <span>+</span>
+            <span>افزودن صنعت جدید</span>
+        </a>
     </div>
 
-    <div class="industry-grid">
-        @foreach (var industry in Model)
-        {
-            <div class="industry-card">
-                <div class="card-header" style="background: linear-gradient(135deg, @industry.ColorTheme 0%, #003366 100%);">
-                    <h3>@industry.Name</h3>
-                    <div class="slug">/@industry.Slug</div>
-                </div>
-                <div class="card-body">
-                    <div class="card-stats">
-                        <div class="card-stat">
-                            <div class="num">@industry.Challenges.Count</div>
-                            <div class="lbl">چالش</div>
-                        </div>
-                        <div class="card-stat">
-                            <div class="num">@industry.Services.Count</div>
-                            <div class="lbl">خدمت</div>
-                        </div>
-                        <div class="card-stat">
-                            <div class="num">@industry.CaseStudies.Count</div>
-                            <div class="lbl">نمونه‌کار</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <a href="/Admin/IndustryContent/@industry.Id" class="btn-action btn-content">
-                        📝 مدیریت محتوا
-                    </a>
-                    <div class="row-actions">
-                        <a href="/Admin/EditIndustry/@industry.Id" class="btn-action btn-edit">ویرایش</a>
-                        <form method="post" action="/Admin/DeleteIndustry/@industry.Id" style="flex:1;" onsubmit="return confirm('مطمئن هستید که می‌خواهید این صنعت را حذف کنید؟ تمام چالش‌ها، خدمات و نمونه‌کارهای مرتبط هم حذف می‌شوند.');">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn-action btn-delete" style="width:100%;">حذف</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        }
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="جستجو در صنایع..." oninput="filterIndustries()" />
     </div>
+
+    <!-- Industry Grid -->
+    @if (Model.Any())
+    {
+        <div class="industry-grid" id="industryGrid">
+            @foreach (var industry in Model)
+            {
+                <div class="industry-card" data-name="@industry.Name.ToLower()" data-slug="@industry.Slug.ToLower()">
+                    
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <div class="card-icon-wrap" style="background: @industry.ColorTheme;">
+                            @industry.Name.Substring(0, 1)
+                        </div>
+                        <div class="card-header-text">
+                            <h3>@industry.Name</h3>
+                            <span class="slug">/@industry.Slug</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(industry.Description))
+                        {
+                            <p class="card-description">@industry.Description</p>
+                        }
+                        else
+                        {
+                            <p class="card-description" style="opacity: 0.5;">بدون توضیحات</p>
+                        }
+                        
+                        <div class="card-stats">
+                            <div class="card-stat">
+                                <div class="num">@industry.Challenges.Count</div>
+                                <div class="lbl">چالش</div>
+                            </div>
+                            <div class="card-stat">
+                                <div class="num">@industry.Services.Count</div>
+                                <div class="lbl">خدمت</div>
+                            </div>
+                            <div class="card-stat">
+                                <div class="num">@industry.CaseStudies.Count</div>
+                                <div class="lbl">نمونه‌کار</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="card-actions">
+                        <a href="/Admin/IndustryContent/@industry.Id" class="btn-action btn-content">
+                            مدیریت محتوا
+                        </a>
+                        <div class="row-actions">
+                            <a href="/Admin/EditIndustry/@industry.Id" class="btn-action btn-edit">ویرایش</a>
+                            <form method="post" action="/Admin/DeleteIndustry/@industry.Id" style="flex:1;" onsubmit="return confirm('مطمئن هستید که می‌خواهید این صنعت را حذف کنید؟ تمام چالش‌ها، خدمات و نمونه‌کارهای مرتبط هم حذف می‌شوند.');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn-action btn-delete" style="width:100%;">حذف</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="icon">📋</div>
+            <h3>هنوز صنعتی ثبت نشده است</h3>
+            <p>برای شروع، یک صنعت جدید اضافه کنید.</p>
+        </div>
+    }
+
 </div>
+
+@section Scripts {
+    <script>
+        function filterIndustries() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.industry-card');
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name') || '';
+                const slug = card.getAttribute('data-slug') || '';
+
+                if (name.includes(searchTerm) || slug.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+}
