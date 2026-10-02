@@ -3,15 +3,28 @@ using Microsoft.EntityFrameworkCore;
 using Rasttad.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-// تنظیم پورت برای لیارا
+
+// تنظیم پورت برای Render
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.AddControllersWithViews();
 
 // اتصال به دیتابیس
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// اگر متغیر محیطی DATABASE_URL وجود داشت (روی Render)، از آن استفاده کن
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+if (!string.IsNullOrEmpty(databaseUrl))
+{
+    // تبدیل فرمت URL به فرمت Npgsql
+    var uri = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':');
+    connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // اضافه کردن Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
@@ -33,8 +46,11 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
+    
+    // اعمال Migrationها به صورت خودکار
+    await context.Database.MigrateAsync();
+    
     DbSeeder.Seed(context);
-
     await SeedAdminAsync(services);
 }
 
@@ -43,8 +59,11 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+else
+{
+    app.UseDeveloperExceptionPage();
+}
 
-// صفحه 404 سفارشی
 app.UseStatusCodePagesWithReExecute("/Home/Error404");
 
 app.UseHttpsRedirection();
