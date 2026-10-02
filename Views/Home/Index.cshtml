@@ -1,0 +1,206 @@
+﻿@{
+    ViewData["Title"] = "سرای توسعه انسانی";
+}
+
+@section Styles {
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #202124;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .logo-container {
+            margin-bottom: 60px;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-container img {
+            max-width: 250px;
+            height: auto;
+            display: block;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5f6368;
+            margin-bottom: 8px;
+            padding-right: 5px;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 14px 20px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #202124;
+            background-color: #fff;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%235f6368%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            background-size: 12px;
+        }
+
+        .input-group select:hover,
+        .input-group select:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .submit-btn-wrapper {
+            flex: 0 0 auto;
+            padding-bottom: 1px;
+        }
+
+        .submit-btn {
+            padding: 14px 45px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background-color: #004a99;
+            border: 1px solid #004a99;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: #003366;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .submit-btn:disabled {
+            background-color: #f8f9fa;
+            color: #b0b0b0;
+            border: 1px solid #dfe1e5;
+            cursor: not-allowed;
+        }
+
+        @@keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @@keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @@media (max-width: 768px) {
+            .logo-container img { max-width: 180px; }
+            .form-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            .submit-btn-wrapper { width: 100%; }
+            .submit-btn { width: 100%; }
+        }
+    </style>
+}
+
+<div class="logo-container">
+    <img src="~/images/logo.png" alt="لوگو رستاد">
+</div>
+
+<form asp-controller="Industry" asp-action="Details" method="get" class="form-container">
+    
+    <div class="input-group">
+        <label for="slug">نام صنعت</label>
+        <select id="slug" name="slug" required onchange="checkForm()">
+            <option value="" disabled selected>انتخاب کنید...</option>
+            <option value="it">فناوری اطلاعات و استارتاپ</option>
+            <option value="manufacturing">تولید و صنایع</option>
+            <option value="retail">خرده‌فروشی و زنجیره‌ای</option>
+            <option value="finance">خدمات مالی و بانکی</option>
+            <option value="health">سلامت و درمان</option>
+            <option value="construction">عمران و ساختمان</option>
+            <option value="hospitality">خدمات و مهمان‌نوازی</option>
+            <option value="logistics">بازرگانی و لجستیک</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="employees">تعداد کارکنان</label>
+        <select id="employees" name="employees" required onchange="checkForm()">
+            <option value="" disabled selected>انتخاب کنید...</option>
+            <option value="1-10">۱ تا ۱۰ نفر</option>
+            <option value="11-50">۱۱ تا ۵۰ نفر</option>
+            <option value="51-200">۵۱ تا ۲۰۰ نفر</option>
+            <option value="201-500">۲۰۱ تا ۵۰۰ نفر</option>
+            <option value="500+">بیش از ۵۰۰ نفر</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="location">محل فعالیت</label>
+        <select id="location" name="location" required onchange="checkForm()">
+            <option value="" disabled selected>انتخاب کنید...</option>
+            <option value="tehran">تهران</option>
+            <option value="isfahan">اصفهان</option>
+            <option value="mashhad">مشهد</option>
+            <option value="shiraz">شیراز</option>
+            <option value="tabriz">تبریز</option>
+            <option value="other">سایر شهرها</option>
+        </select>
+    </div>
+
+    <div class="submit-btn-wrapper">
+        <button type="submit" id="submitBtn" class="submit-btn" disabled>ورود</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+        function checkForm() {
+            const slug = document.getElementById('slug').value;
+            const employees = document.getElementById('employees').value;
+            const location = document.getElementById('location').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (slug && employees && location) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+    </script>
+}

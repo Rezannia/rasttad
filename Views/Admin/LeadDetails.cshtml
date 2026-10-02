@@ -1,0 +1,288 @@
+@model Rasttad.Models.Lead
+
+@{
+    ViewData["Title"] = "جزئیات سرنخ";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <style>
+        .detail-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .detail-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .detail-header {
+            background: linear-gradient(135deg, #004a99 0%, #003366 100%);
+            color: #fff;
+            padding: 30px;
+            position: relative;
+        }
+
+        .detail-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .detail-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-followed {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        .detail-body {
+            padding: 30px;
+        }
+
+        .detail-row {
+            display: flex;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 18px 0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row .label {
+            width: 180px;
+            font-weight: 500;
+            color: #64748b;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .detail-row .value {
+            flex: 1;
+            color: #1e293b;
+            font-size: 0.95rem;
+            word-break: break-word;
+        }
+
+        .detail-row .value a {
+            color: #004a99;
+            text-decoration: none;
+        }
+
+        .detail-row .value a:hover {
+            text-decoration: underline;
+        }
+
+        .notes-box {
+            background: #f8fafc;
+            border-right: 4px solid #004a99;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .notes-box h3 {
+            font-size: 1rem;
+            color: #004a99;
+            margin-bottom: 10px;
+        }
+
+        .notes-box textarea {
+            width: 100%;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .notes-box textarea:focus {
+            border-color: #004a99;
+            box-shadow: 0 0 0 3px rgba(0,74,153,0.1);
+        }
+
+        .actions-bar {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-back {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-follow {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .btn-follow:hover {
+            background: #059669;
+        }
+
+        .btn-unfollow {
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        .btn-unfollow:hover {
+            background: #d97706;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+    </style>
+}
+
+<div class="detail-container">
+    <div class="detail-card">
+        <!-- هدر -->
+        <div class="detail-header">
+            <div class="status-badge @(Model.IsFollowedUp ? "status-followed" : "status-pending")">
+                @(Model.IsFollowedUp ? "✓ پیگیری شده" : "⏳ در انتظار")
+            </div>
+            <h1>@Model.FullName</h1>
+            <p>ثبت شده در: @Model.CreatedAt.ToString("yyyy/MM/dd - HH:mm")</p>
+        </div>
+
+        <!-- بدنه -->
+        <div class="detail-body">
+            <div class="detail-row">
+                <div class="label">شماره تماس</div>
+                <div class="value">
+                    <a href="tel:@Model.Phone">@Model.Phone</a>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="label">ایمیل</div>
+                <div class="value">
+                    @if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <a href="mailto:@Model.Email">@Model.Email</a>
+                    }
+                    else
+                    {
+                        <span style="color: #94a3b8;">ثبت نشده</span>
+                    }
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="label">صنعت</div>
+                <div class="value">
+                    <span style="background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">
+                        @Model.IndustrySlug
+                    </span>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="label">تعداد کارکنان</div>
+                <div class="value">@(Model.EmployeeCount ?? "ثبت نشده")</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="label">محل فعالیت</div>
+                <div class="value">@(Model.Location ?? "ثبت نشده")</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="label">توضیحات</div>
+                <div class="value">
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        @Model.Message
+                    }
+                    else
+                    {
+                        <span style="color: #94a3b8;">بدون توضیح</span>
+                    }
+                </div>
+            </div>
+
+            <!-- یادداشت‌ها -->
+            <div class="notes-box">
+                <h3>یادداشت‌های داخلی</h3>
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <p style="color: #475569; font-size: 0.95rem; line-height: 1.8;">@Model.Notes</p>
+                }
+                else
+                {
+                    <p style="color: #94a3b8; font-size: 0.9rem;">هنوز یادداشتی ثبت نشده است.</p>
+                }
+                <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px;">
+                    (قابلیت افزودن یادداشت در فازهای بعدی اضافه می‌شود)
+                </p>
+            </div>
+
+            <!-- دکمه‌های عملیات -->
+            <div class="actions-bar">
+                <a href="/Admin/Leads" class="btn btn-back">← بازگشت به لیست</a>
+
+                <form method="post" action="/Admin/ToggleFollowUp/@Model.Id" style="display:inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn @(Model.IsFollowedUp ? "btn-unfollow" : "btn-follow")">
+                        @(Model.IsFollowedUp ? "لغو پیگیری" : "علامت‌گذاری به عنوان پیگیری شده")
+                    </button>
+                </form>
+
+                <form method="post" action="/Admin/DeleteLead/@Model.Id" style="display:inline;" onsubmit="return confirm('مطمئن هستید که می‌خواهید این سرنخ را حذف کنید؟');">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-delete">حذف سرنخ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "ورود به پنل مدیریت";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود | رستاد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #004a99 0%, #003366 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 180px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #004a99;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #004a99;
+            box-shadow: 0 0 0 3px rgba(0,74,153,0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #004a99;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #003366;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,74,153,0.3);
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            color: #004a99;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="رستاد">
+        </div>
+        <h1>ورود به پنل مدیریت</h1>
+        <p class="subtitle">برای دسترسی به پنل، اطلاعات خود را وارد کنید</p>
+
+        <form id="account" method="post">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="error">
+                    <div asp-validation-summary="ModelOnly"></div>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Input.Email">ایمیل</label>
+                <input asp-for="Input.Email" type="email" autocomplete="username" aria-required="true" />
+                <span asp-validation-for="Input.Email" style="color: #ef4444; font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password">رمز عبور</label>
+                <input asp-for="Input.Password" type="password" autocomplete="current-password" aria-required="true" />
+                <span asp-validation-for="Input.Password" style="color: #ef4444; font-size: 0.85rem;"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <input asp-for="Input.RememberMe" type="checkbox" />
+                <label asp-for="Input.RememberMe">مرا به خاطر بسپار</label>
+            </div>
+
+            <button id="login-submit" type="submit" class="submit-btn">ورود</button>
+        </form>
+
+        <div class="back-link">
+            <a href="/">← بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

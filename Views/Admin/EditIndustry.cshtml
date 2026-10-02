@@ -1,0 +1,171 @@
+@model Rasttad.Models.Industry
+
+@{
+    ViewData["Title"] = "ویرایش صنعت";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #004a99 0%, #003366 100%);
+            color: #fff;
+            padding: 30px;
+        }
+
+        .form-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 18px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #004a99;
+            box-shadow: 0 0 0 3px rgba(0,74,153,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-save {
+            flex: 1;
+            padding: 15px;
+            background: #004a99;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-save:hover {
+            background: #003366;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,74,153,0.3);
+        }
+
+        .btn-cancel {
+            padding: 15px 30px;
+            background: #f1f5f9;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+        }
+    </style>
+}
+
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>ویرایش صنعت</h1>
+            <p>@Model.Name</p>
+        </div>
+        <div class="form-body">
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label asp-for="Slug">نام کوتاه (Slug)</label>
+                        <input asp-for="Slug" required />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name">نام صنعت</label>
+                        <input asp-for="Name" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description">توضیحات</label>
+                    <textarea asp-for="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ColorTheme">رنگ اصلی (کد HEX)</label>
+                    <input asp-for="ColorTheme" placeholder="#004a99" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="HeroImage">آدرس تصویر (اختیاری)</label>
+                    <input asp-for="HeroImage" placeholder="/images/industry-it.jpg" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">ذخیره تغییرات</button>
+                    <a href="/Admin/Industries" class="btn-cancel">لغو</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

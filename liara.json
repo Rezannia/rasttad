@@ -1,0 +1,6 @@
+{
+  "platform": "dotnet",
+  "app": "rasttad",
+  "port": 8080,
+  "healthCheckPath": "/"
+}

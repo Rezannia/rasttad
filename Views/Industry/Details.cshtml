@@ -1,0 +1,463 @@
+@model Rasttad.Models.Industry
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+@section Styles {
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.8;
+        }
+
+        /* ========== هدر ========== */
+        .header {
+            background: linear-gradient(135deg, @Model.ColorTheme 0%, #003366 100%);
+            color: #fff;
+            padding: 60px 20px 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ========== کانتینر اصلی ========== */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== کارت خلاصه ========== */
+        .summary-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .summary-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .summary-item .label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .summary-item .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: @Model.ColorTheme;
+        }
+
+        /* ========== بخش‌ها ========== */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 25px;
+            padding-right: 15px;
+            border-right: 4px solid @Model.ColorTheme;
+        }
+
+        /* ========== چالش‌ها ========== */
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .challenge-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            border-right: 4px solid #ef4444;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .challenge-card h3 {
+            font-size: 1.1rem;
+            color: #ef4444;
+            margin-bottom: 10px;
+        }
+
+        .challenge-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* ========== خدمات ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: @Model.ColorTheme;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* ========== نمونه کار ========== */
+        .case-study {
+            background: linear-gradient(135deg, @Model.ColorTheme 0%, #003366 100%);
+            color: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .case-study h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .case-study p {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .case-study .result {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ========== فرم تماس ========== */
+        .contact-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .contact-form h2 {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .contact-form .subtitle {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 18px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: @Model.ColorTheme;
+            box-shadow: 0 0 0 3px rgba(0,74,153,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: @Model.ColorTheme;
+            color: #fff;
+            padding: 15px 40px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #003366;
+            transform: translateY(-2px);
+        }
+
+        /* ========== فوتر ========== */
+        .footer {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        /* ========== ریسپانسیو ========== */
+        @@media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .header p { font-size: 1rem; }
+            .summary-card { flex-direction: column; gap: 15px; }
+            .form-row { grid-template-columns: 1fr; }
+            .contact-form { padding: 25px; }
+        }
+    </style>
+}
+
+<!-- هدر -->
+<div class="header">
+    <div class="header-content">
+        <div class="breadcrumb">
+            <a href="/">رستاد</a> / <a href="/">صنایع</a> / @Model.Name
+        </div>
+        <h1>راهکارهای منابع انسانی برای @Model.Name</h1>
+        <p>@Model.Description</p>
+    </div>
+</div>
+
+<!-- کانتینر اصلی -->
+<div class="container">
+
+    <!-- کارت خلاصه -->
+    <div class="summary-card">
+        <div class="summary-item">
+            <div class="label">صنعت</div>
+            <div class="value">@Model.Name</div>
+        </div>
+        <div class="summary-item">
+            <div class="label">تعداد کارکنان</div>
+            <div class="value">@ViewData["Employees"]</div>
+        </div>
+        <div class="summary-item">
+            <div class="label">محل فعالیت</div>
+            <div class="value">@ViewData["Location"]</div>
+        </div>
+    </div>
+
+    <!-- چالش‌ها -->
+    @if (Model.Challenges.Any())
+    {
+        <div class="section">
+            <h2 class="section-title">چالش‌های منابع انسانی در @Model.Name</h2>
+            <div class="challenges-grid">
+                @foreach (var challenge in Model.Challenges)
+                {
+                    <div class="challenge-card">
+                        <h3>@challenge.Title</h3>
+                        <p>@challenge.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- خدمات -->
+    @if (Model.Services.Any())
+    {
+        <div class="section">
+            <h2 class="section-title">راهکارهای رستاد برای @Model.Name</h2>
+            <div class="services-grid">
+                @foreach (var service in Model.Services)
+                {
+                    <div class="service-card">
+                        <div class="service-icon">✓</div>
+                        <h3>@service.Title</h3>
+                        <p>@service.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- نمونه کار -->
+    @if (Model.CaseStudies.Any())
+    {
+        <div class="section">
+            <h2 class="section-title">نمونه‌های موفقیت</h2>
+            @foreach (var cs in Model.CaseStudies)
+            {
+                <div class="case-study">
+                    <h3>@cs.Title</h3>
+                    <p>@cs.Description</p>
+                    @if (!string.IsNullOrEmpty(cs.Result))
+                    {
+                        <div class="result">@cs.Result</div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    <!-- CTA -->
+<div style="background: #fff; padding: 40px; border-radius: 16px; text-align: center; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    <h2 style="font-size: 1.5rem; color: #1e293b; margin-bottom: 15px;">
+        آماده‌اید تحول منابع انسانی خود را شروع کنید؟
+    </h2>
+    <p style="color: #64748b; margin-bottom: 25px;">
+        همین حالا فرم زیر را پر کنید تا کارشناسان ما با شما تماس بگیرند.
+    </p>
+</div>
+
+    <!-- فرم تماس -->
+    <div class="contact-form">
+        <h2>درخواست مشاوره تخصصی</h2>
+        <p class="subtitle">اطلاعات خود را وارد کنید تا کارشناسان ما با شما تماس بگیرند.</p>
+        
+        <form method="post" action="/Industry/SubmitLead">
+            <input type="hidden" name="IndustrySlug" value="@Model.Slug" />
+            <input type="hidden" name="EmployeeCount" value="@ViewData["Employees"]" />
+            <input type="hidden" name="Location" value="@ViewData["Location"]" />
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="FullName">نام و نام خانوادگی *</label>
+                    <input type="text" id="FullName" name="FullName" required />
+                </div>
+                <div class="form-group">
+                    <label for="Phone">شماره تماس *</label>
+                    <input type="tel" id="Phone" name="Phone" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Email">ایمیل (اختیاری)</label>
+                <input type="email" id="Email" name="Email" />
+            </div>
+
+            <div class="form-group">
+                <label for="Message">توضیحات (اختیاری)</label>
+                <textarea id="Message" name="Message" placeholder="اگر نیاز خاصی دارید، اینجا بنویسید..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">ارسال درخواست</button>
+        </form>
+    </div>
+
+</div>
+
+<!-- فوتر -->
+<div class="footer">
+    رستاد، سرای توسعه انسانی | <a href="/">بازگشت به صفحه اصلی</a>
+</div>
