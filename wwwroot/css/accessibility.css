@@ -1,0 +1,174 @@
+/* ============================================================
+   Accessibility Improvements for Rasttad
+   ============================================================ */
+
+/* ==================== Skip Link ==================== */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    right: 0;
+    background: #2557a7;
+    color: #ffffff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 600;
+    border-radius: 0 0 4px 4px;
+    z-index: 9999;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* ==================== Focus Styles ==================== */
+/* فوکوس واضح برای همه عناصر تعاملی */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus {
+    outline: 3px solid #2557a7;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* حذف outline پیش‌فرض مرورگر (اختیاری) */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* فوکوس برای عناصر روی پس‌زمینه تیره */
+.hero-video-section a:focus,
+.hero-video-section button:focus,
+.hero-video-section select:focus {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* ==================== Screen Reader Only ==================== */
+/* محتوایی که فقط برای صفحه‌خوان قابل دسترسی است */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==================== Reduced Motion ==================== */
+/* احترام به کاربرانی که انیمیشن نمی‌خواهند */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==================== High Contrast Mode ==================== */
+/* پشتیبانی از حالت کنتراست بالا */
+@media (prefers-contrast: high) {
+    a {
+        text-decoration: underline;
+    }
+
+    button,
+    .btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* ==================== Larger Text ==================== */
+/* اگر کاربر فونت مرورگر را بزرگ کند، همه چیز درست نمایش داده شود */
+html {
+    font-size: 100%;
+}
+
+body {
+    font-size: 1rem;
+}
+
+/* ==================== Better Link Contrast ==================== */
+/* لینک‌های روی پس‌زمینه تیره */
+.hero-video-section a:not(.form-submit-btn) {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.hero-video-section a:not(.form-submit-btn):hover {
+    color: #c7d9f0;
+}
+
+/* ==================== Form Labels ==================== */
+/* اطمینان از خوانایی لیبل‌ها */
+label {
+    cursor: pointer;
+}
+
+label.required::after {
+    content: ' *';
+    color: #c0392b;
+    font-weight: bold;
+}
+/* ==================== Contrast Fixes ==================== */
+
+/* متن‌های خاکستری تیره‌تر شوند */
+.text-muted,
+p,
+.footer-col p,
+.footer-col a,
+.trust-section p,
+.trust-logos span {
+    color: #525252 !important;
+}
+
+/* متن‌های روی پس‌زمینه تیره */
+.hero-content p,
+.hero-badge,
+.form-field-wrap label {
+    color: #ffffff !important;
+}
+
+/* لینک‌ها */
+a {
+    color: #1a3f7a;
+}
+
+a:hover {
+    color: #0f2a54;
+}
+
+/* دکمه‌های غیرفعال */
+.form-submit-btn:disabled {
+    background: rgba(255, 255, 255, 0.35) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* متن‌های داخل فرم روی پس‌زمینه شیشه‌ای */
+.form-field-wrap select {
+    color: #1b1b1b !important;
+    background: #ffffff !important;
+}
+
+/* برچسب‌های فرم */
+label {
+    color: #1b1b1b;
+}
+
+.hero-video-section label {
+    color: #ffffff !important;
+}

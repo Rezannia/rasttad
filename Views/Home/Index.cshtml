@@ -222,8 +222,8 @@
         }
 
         .form-submit-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.95);
             cursor: not-allowed;
             box-shadow: none;
             backdrop-filter: blur(10px);
@@ -252,7 +252,7 @@
 
         .trust-section p {
             font-size: 0.8rem;
-            color: #8d8d8d;
+            color: #525252;
             margin-bottom: 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -264,7 +264,7 @@
             justify-content: center;
             gap: 3.5rem;
             flex-wrap: wrap;
-            opacity: 0.4;
+            opacity: 0.6;
         }
 
         .trust-logos span {
@@ -301,7 +301,7 @@
 }
 
 <!-- ==================== Hero with Video Background ==================== -->
-<section class="hero-video-section">
+<section class="hero-video-section" aria-label="بخش معرفی رستاد">
 
     <video class="hero-video" 
            autoplay 
@@ -309,23 +309,24 @@
            loop 
            playsinline 
            preload="auto"
-           poster="/images/hero-poster.jpg">
+           poster="/images/hero-poster.jpg"
+           aria-hidden="true">
         <source src="/videos/hero-bg.mp4" type="video/mp4" />
         <source src="/videos/hero-bg.webm" type="video/webm" />
     </video>
 
     <!-- گرادیانت تیره به سفید -->
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="hero-content">
         <!-- لوگو -->
         <div class="hero-logo">
-            <img src="/images/logo.png" alt="رستاد">
+            <img src="/images/logo.png" alt="لوگو رستاد - سرای توسعه انسانی">
         </div>
 
         <!-- بج معرفی -->
         <div class="hero-badge">
-            اولین بوتیک  تخصصی توسعه کسب‌وکار
+            اولین بوتیک خدمات تخصصی توسعه کسب‌وکار
         </div>
 
         <!-- تیتر اصلی -->
@@ -341,11 +342,11 @@
 
         <!-- فرم Gateway -->
         <div class="gateway-form">
-            <form asp-controller="Industry" asp-action="Details" method="get">
+            <form asp-controller="Industry" asp-action="Details" method="get" role="form" aria-label="فرم انتخاب صنعت">
                 <div class="form-grid">
                     <div class="form-field-wrap">
                         <label for="slug">نام صنعت</label>
-                        <select id="slug" name="slug" required onchange="checkForm()">
+                        <select id="slug" name="slug" required aria-label="نام صنعت">
                             <option value="" disabled selected>انتخاب کنید</option>
                             <option value="it">فناوری اطلاعات و استارتاپ</option>
                             <option value="manufacturing">تولید و صنایع</option>
@@ -360,7 +361,7 @@
 
                     <div class="form-field-wrap">
                         <label for="employees">تعداد کارکنان</label>
-                        <select id="employees" name="employees" required onchange="checkForm()">
+                        <select id="employees" name="employees" required aria-label="تعداد کارکنان">
                             <option value="" disabled selected>انتخاب کنید</option>
                             <option value="1-10">۱ تا ۱۰ نفر</option>
                             <option value="11-50">۱۱ تا ۵۰ نفر</option>
@@ -372,7 +373,7 @@
 
                     <div class="form-field-wrap">
                         <label for="location">محل فعالیت</label>
-                        <select id="location" name="location" required onchange="checkForm()">
+                        <select id="location" name="location" required aria-label="محل فعالیت">
                             <option value="" disabled selected>انتخاب کنید</option>
                             <option value="tehran">تهران</option>
                             <option value="isfahan">اصفهان</option>
@@ -384,7 +385,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" id="submitBtn" class="form-submit-btn" disabled>ورود به سکو</button>
+                        <button type="submit" id="submitBtn" class="form-submit-btn" disabled aria-label="ورود به سکو">ورود به سکو</button>
                     </div>
                 </div>
             </form>
@@ -394,7 +395,7 @@
 </section>
 
 <!-- ==================== Trust Section ==================== -->
-<section class="trust-section">
+<section class="trust-section" aria-label="مشتریان رستاد">
     <div class="grid-container">
         <p>مورد اعتماد کسب‌وکارهای پیشرو</p>
         <div class="trust-logos">
@@ -405,25 +406,3 @@
         </div>
     </div>
 </section>
-
-@section Scripts {
-    <script>
-        // پخش خودکار ویدیو
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.hero-video');
-            if (video) {
-                video.play().catch(function(error) {
-                    console.log('Autoplay was prevented:', error);
-                });
-            }
-        });
-
-        function checkForm() {
-            const slug = document.getElementById('slug').value;
-            const employees = document.getElementById('employees').value;
-            const location = document.getElementById('location').value;
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = !(slug && employees && location);
-        }
-    </script>
-}

@@ -19,80 +19,242 @@
     
     <title>@ViewData["Title"] - رستاد</title>
     
-    <!-- فونت وزیرمتن (جایگزین فونت‌های USWDS برای فارسی) -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- USWDS CSS -->
     <link rel="stylesheet" href="~/lib/uswds/css/uswds.min.css" />
     
-    <!-- USWDS Initializer -->
-    <script src="~/lib/uswds/js/uswds-init.min.js"></script>
+    <!-- USWDS Init (defer for non-blocking) -->
+    <script src="~/lib/uswds/js/uswds-init.min.js" defer></script>
     
-    <!-- RTL Override برای فارسی -->
-    <link rel="stylesheet" href="~/css/rasttad-rtl.css" asp-append-version="true" />
+    <!-- Custom CSS -->
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/rasttad-rtl.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/accessibility.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/rasttad-rtl.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/accessibility.min.css" asp-append-version="true" />
+    </environment>
+    
+    <style>
+        /* ==================== Header (Admin) ==================== */
+        .admin-nav {
+            background: #1b1b1b;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .admin-nav .brand {
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .admin-nav .brand:hover {
+            color: #c7d9f0;
+            text-decoration: none;
+        }
+
+        .admin-nav .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .admin-nav .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .admin-nav .nav-links a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .admin-nav .user-info {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        /* ==================== Footer ==================== */
+        .site-footer {
+            background: #f4f4f4;
+            border-top: 1px solid #e0e0e0;
+            padding: 3.5rem 1.5rem 1.5rem;
+            margin-top: 5rem;
+            font-family: 'Vazirmatn', sans-serif;
+            direction: rtl;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .footer-col h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1b1b1b;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-col p {
+            font-size: 0.85rem;
+            color: #525252;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-col a {
+            color: #525252;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .footer-col a:hover {
+            color: #1a3f7a;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #525252;
+        }
+
+        /* ==================== Responsive ==================== */
+        @@media (max-width: 900px) {
+            .footer-inner {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @@media (max-width: 600px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 1.75rem;
+            }
+
+            .site-footer {
+                padding: 2.5rem 1.25rem 1.25rem;
+            }
+
+            .admin-nav {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .admin-nav .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
     
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
 
+    <!-- Skip Link (Accessibility) -->
+    <a href="#main-content" class="skip-link">پرش به محتوای اصلی</a>
+
+    <!-- Admin Navigation (only for logged-in users) -->
     @if (User.Identity != null && User.Identity.IsAuthenticated)
     {
-        <div class="bg-base-darkest text-white padding-y-1 padding-x-3">
-            <div class="grid-container display-flex flex-justify flex-align-center">
-                <a href="/" class="text-white text-bold text-no-underline">رستاد</a>
-                <div class="display-flex flex-align-center gap-3">
-                    <a href="/Admin" class="text-white text-no-underline">پنل مدیریت</a>
-                    <span class="text-base-lightest font-sans-3xs">@User.Identity.Name</span>
-                    <a href="/Home/Logout" class="text-white text-no-underline">خروج</a>
-                </div>
+        <nav class="admin-nav" role="navigation" aria-label="منوی مدیریت">
+            <a href="/" class="brand" aria-label="رستاد - صفحه اصلی">رستاد</a>
+            <div class="nav-links">
+                <a href="/Admin">پنل مدیریت</a>
+                <span class="user-info" aria-label="کاربر وارد شده">@User.Identity.Name</span>
+                <a href="/Home/Logout">خروج</a>
             </div>
-        </div>
+        </nav>
     }
 
-    @RenderBody()
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        @RenderBody()
+    </main>
 
-    <footer class="bg-base-lightest border-top border-base-lighter margin-top-8 padding-y-6">
-        <div class="grid-container">
-            <div class="grid-row grid-gap-4">
-                <div class="tablet:grid-col-4">
-                    <h4 class="font-sans-sm text-bold margin-bottom-2">رستاد</h4>
-                    <p class="font-sans-2xs text-base-dark line-height-sans-4">
-                        سرای توسعه انسانی، ارائه‌دهنده راهکارهای تخصصی منابع انسانی برای صنایع مختلف ایران.
-                    </p>
-                </div>
-                <div class="tablet:grid-col-2">
-                    <h4 class="font-sans-sm text-bold margin-bottom-2">خدمات</h4>
-                    <ul class="usa-list usa-list--unstyled font-sans-2xs">
-                        <li><a href="/" class="text-base-dark">مشاوره منابع انسانی</a></li>
-                        <li><a href="/" class="text-base-dark">جذب و استخدام</a></li>
-                        <li><a href="/" class="text-base-dark">آموزش و توسعه</a></li>
-                    </ul>
-                </div>
-                <div class="tablet:grid-col-2">
-                    <h4 class="font-sans-sm text-bold margin-bottom-2">صنایع</h4>
-                    <ul class="usa-list usa-list--unstyled font-sans-2xs">
-                        <li><a href="/Industry/Details?slug=it" class="text-base-dark">فناوری اطلاعات</a></li>
-                        <li><a href="/Industry/Details?slug=manufacturing" class="text-base-dark">تولید و صنایع</a></li>
-                        <li><a href="/Industry/Details?slug=retail" class="text-base-dark">خرده‌فروشی</a></li>
-                    </ul>
-                </div>
-                <div class="tablet:grid-col-2">
-                    <h4 class="font-sans-sm text-bold margin-bottom-2">ارتباط</h4>
-                    <ul class="usa-list usa-list--unstyled font-sans-2xs">
-                        <li><a href="/" class="text-base-dark">درباره ما</a></li>
-                        <li><a href="/" class="text-base-dark">تماس با ما</a></li>
-                        <li><a href="/" class="text-base-dark">وبلاگ</a></li>
-                    </ul>
-                </div>
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>رستاد</h4>
+                <p>سرای توسعه انسانی، ارائه‌دهنده راهکارهای تخصصی منابع انسانی برای صنایع مختلف ایران.</p>
             </div>
-            <div class="border-top border-base-lighter margin-top-4 padding-top-3 text-center font-sans-3xs text-base">
-                © ۱۴۰۴ رستاد | تمامی حقوق محفوظ است.
+            <div class="footer-col">
+                <h4>خدمات</h4>
+                <ul>
+                    <li><a href="/">مشاوره منابع انسانی</a></li>
+                    <li><a href="/">جذب و استخدام</a></li>
+                    <li><a href="/">آموزش و توسعه</a></li>
+                </ul>
             </div>
+            <div class="footer-col">
+                <h4>صنایع</h4>
+                <ul>
+                    <li><a href="/Industry/Details?slug=it">فناوری اطلاعات</a></li>
+                    <li><a href="/Industry/Details?slug=manufacturing">تولید و صنایع</a></li>
+                    <li><a href="/Industry/Details?slug=retail">خرده‌فروشی</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>ارتباط</h4>
+                <ul>
+                    <li><a href="/">درباره ما</a></li>
+                    <li><a href="/">تماس با ما</a></li>
+                    <li><a href="/">وبلاگ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © ۱۴۰۴ رستاد | تمامی حقوق محفوظ است.
         </div>
     </footer>
 
-    <!-- USWDS JS -->
-    <script src="~/lib/uswds/js/uswds.min.js"></script>
+    <!-- USWDS JS (defer for non-blocking) -->
+    <script src="~/lib/uswds/js/uswds.min.js" defer></script>
+    
+    <!-- Custom JS (defer for non-blocking) -->
+    <environment include="Development">
+        <script src="~/js/rasttad.js" defer></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/rasttad.min.js" defer></script>
+    </environment>
     
     @await RenderSectionAsync("Scripts", required: false)
 </body>
