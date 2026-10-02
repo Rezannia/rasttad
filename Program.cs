@@ -4,13 +4,9 @@ using Rasttad.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// لاگ کردن DATABASE_URL برای دیباگ
-var dbUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-Console.WriteLine($"=== DATABASE_URL: {dbUrl ?? "NULL"} ===");
-
 // تنظیم پورت برای Render
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+var webPort = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{webPort}");
 
 builder.Services.AddControllersWithViews();
 
@@ -21,17 +17,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 if (!string.IsNullOrEmpty(databaseUrl))
 {
-    // Render فرمت postgres:// می‌دهد که Uri نمی‌تواند درست تجزیه کند
-    // پس به صورت دستی تجزیه می‌کنیم
+    // Render فرمت postgres:// می‌دهد
     var uri = new Uri(databaseUrl);
     var userInfo = uri.UserInfo.Split(':');
-    var host = uri.Host;
-    var port = uri.Port > 0 ? uri.Port : 5432; // پورت پیش‌فرض PostgreSQL
+    var dbHost = uri.Host;
+    var dbPort = uri.Port > 0 ? uri.Port : 5432;
     var database = uri.AbsolutePath.TrimStart('/');
     var username = userInfo[0];
     var password = userInfo.Length > 1 ? userInfo[1] : "";
 
-    connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+    connectionString = $"Host={dbHost};Port={dbPort};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
 }
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
