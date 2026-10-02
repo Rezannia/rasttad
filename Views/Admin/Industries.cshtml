@@ -7,119 +7,118 @@
 
 @section Styles {
     <style>
-        .admin-container {
-            max-width: 1300px;
-            margin: 40px auto;
-            padding: 0 20px;
+        .admin-page {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.25rem;
         }
 
         .page-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 1rem;
         }
 
-        .page-header h1 {
-            font-size: 1.8rem;
-            color: #004a99;
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1b1b1b;
         }
 
         .btn-create {
-            padding: 12px 30px;
-            background: #10b981;
-            color: #fff;
+            padding: 0.75rem 1.5rem;
+            background: #198038;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.2s;
-            display: inline-block;
+            transition: background 0.2s;
         }
 
         .btn-create:hover {
-            background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16,185,129,0.3);
+            background: #135c28;
         }
 
         .industry-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
+            gap: 1.5rem;
         }
 
         .industry-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .industry-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: var(--rasttad-primary);
         }
 
         .card-header {
-            padding: 25px;
-            color: #fff;
+            padding: 1.5rem;
+            color: #ffffff;
         }
 
         .card-header h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
         }
 
         .card-header .slug {
             font-size: 0.8rem;
-            opacity: 0.8;
+            opacity: 0.85;
             font-family: monospace;
         }
 
         .card-body {
-            padding: 20px 25px;
+            padding: 1.25rem 1.5rem;
         }
 
         .card-stats {
             display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .card-stat {
             flex: 1;
             text-align: center;
-            padding: 10px;
-            background: #f8fafc;
-            border-radius: 8px;
+            padding: 0.75rem;
+            background: #f4f4f4;
+            border-radius: 4px;
         }
 
         .card-stat .num {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: #1e293b;
+            color: #1b1b1b;
         }
 
         .card-stat .lbl {
             font-size: 0.75rem;
-            color: #64748b;
+            color: #6f6f6f;
         }
 
         .card-actions {
             display: flex;
-            gap: 8px;
-            padding: 0 25px 25px;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 1.5rem 1.5rem;
         }
 
         .btn-action {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
             font-size: 0.85rem;
-            font-family: inherit;
+            font-family: 'Vazirmatn', sans-serif;
             border: none;
             cursor: pointer;
             text-decoration: none;
@@ -128,30 +127,48 @@
             font-weight: 500;
         }
 
+        .btn-content {
+            background: #198038;
+            color: #ffffff;
+        }
+
+        .btn-content:hover {
+            background: #135c28;
+        }
+
         .btn-edit {
-            background: #004a99;
-            color: #fff;
+            background: var(--rasttad-primary);
+            color: #ffffff;
         }
 
         .btn-edit:hover {
-            background: #003366;
+            background: var(--rasttad-primary-dark);
         }
 
         .btn-delete {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #fff1f1;
+            color: #750e13;
         }
 
         .btn-delete:hover {
-            background: #ef4444;
-            color: #fff;
+            background: #c0392b;
+            color: #ffffff;
+        }
+
+        .row-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .row-actions .btn-action {
+            flex: 1;
         }
     </style>
 }
 
-<div class="admin-container">
+<div class="admin-page">
     <div class="page-header">
-        <h1>مدیریت صنایع (@Model.Count)</h1>
+        <h1 class="page-title">مدیریت صنایع (@Model.Count)</h1>
         <a href="/Admin/CreateIndustry" class="btn-create">+ افزودن صنعت جدید</a>
     </div>
 
@@ -180,11 +197,16 @@
                     </div>
                 </div>
                 <div class="card-actions">
-                    <a href="/Admin/EditIndustry/@industry.Id" class="btn-action btn-edit">ویرایش</a>
-                    <form method="post" action="/Admin/DeleteIndustry/@industry.Id" style="flex:1;" onsubmit="return confirm('مطمئن هستید که می‌خواهید این صنعت را حذف کنید؟ تمام چالش‌ها، خدمات و نمونه‌کارهای مرتبط هم حذف می‌شوند.');">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn-action btn-delete" style="width:100%;">حذف</button>
-                    </form>
+                    <a href="/Admin/IndustryContent/@industry.Id" class="btn-action btn-content">
+                        📝 مدیریت محتوا
+                    </a>
+                    <div class="row-actions">
+                        <a href="/Admin/EditIndustry/@industry.Id" class="btn-action btn-edit">ویرایش</a>
+                        <form method="post" action="/Admin/DeleteIndustry/@industry.Id" style="flex:1;" onsubmit="return confirm('مطمئن هستید که می‌خواهید این صنعت را حذف کنید؟ تمام چالش‌ها، خدمات و نمونه‌کارهای مرتبط هم حذف می‌شوند.');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn-action btn-delete" style="width:100%;">حذف</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         }

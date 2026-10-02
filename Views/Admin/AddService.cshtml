@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "افزودن خدمت جدید";
+    Layout = "_Layout";
+    int industryId = ViewBag.IndustryId;
+}
+
+@section Styles {
+    <style>
+        .form-page { max-width: 700px; margin: 3rem auto; padding: 0 1.25rem; }
+        .page-title { font-size: 1.5rem; font-weight: 700; color: #1b1b1b; margin-bottom: 0.5rem; }
+        .page-subtitle { font-size: 0.95rem; color: #6f6f6f; margin-bottom: 2.5rem; }
+        .form-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 2.5rem; }
+        .form-field { display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+        .form-field label { font-size: 0.85rem; font-weight: 500; color: #1b1b1b; margin-bottom: 0.5rem; }
+        .form-field input, .form-field textarea {
+            padding: 0.75rem 1rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.9rem;
+            color: #1b1b1b; background: #ffffff; border: 1px solid #c6c6c6; border-radius: 4px;
+            outline: none; transition: border-color 0.2s; direction: rtl;
+        }
+        .form-field input:focus, .form-field textarea:focus {
+            border-color: var(--rasttad-primary); box-shadow: 0 0 0 2px var(--rasttad-primary-light);
+        }
+        .form-field textarea { resize: vertical; min-height: 100px; }
+        .form-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-primary {
+            padding: 0.75rem 2rem; background: var(--rasttad-primary); color: #ffffff;
+            border: none; border-radius: 4px; font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-primary:hover { background: var(--rasttad-primary-dark); }
+        .btn-secondary {
+            padding: 0.75rem 2rem; background: transparent; color: #525252;
+            border: 1px solid #c6c6c6; border-radius: 4px; font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem; text-decoration: none; text-align: center; transition: all 0.2s;
+        }
+        .btn-secondary:hover { border-color: #525252; background: #f4f4f4; }
+    </style>
+}
+
+<div class="form-page">
+    <h1 class="page-title">افزودن خدمت جدید</h1>
+    <p class="page-subtitle">یک خدمت جدید برای این صنعت اضافه کنید.</p>
+
+    <div class="form-card">
+        <form method="post" action="/Admin/AddService">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="IndustryId" value="@industryId" />
+
+            <div class="form-field">
+                <label for="Title">عنوان خدمت *</label>
+                <input type="text" id="Title" name="Title" required placeholder="مثال: جذب و استخدام تخصصی" />
+            </div>
+
+            <div class="form-field">
+                <label for="Description">توضیحات</label>
+                <textarea id="Description" name="Description" placeholder="توضیح کوتاه در مورد این خدمت..."></textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="Icon">آیکون (اختیاری)</label>
+                <input type="text" id="Icon" name="Icon" placeholder="نام آیکون (مثل search، book)" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">ذخیره خدمت</button>
+                <a href="/Admin/IndustryContent/@industryId" class="btn-secondary">لغو</a>
+            </div>
+        </form>
+    </div>
+</div>
